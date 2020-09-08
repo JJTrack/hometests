@@ -17,12 +17,24 @@ class App extends Component {
     super(props);
 
     this.state = {
-      rssi:[],
+      dataZero: {rssi:[],
       time:[],
       distance:[],
-      kalman:[],
+      kalman:[]
+    },
+    dataOne: {rssi:[],
+      time:[],
+      distance:[],
+      kalman:[]
+    },
+    dataTwo: {rssi:[],
+      time:[],
+      distance:[],
+      kalman:[]
+    },
       r1: 2,
-      r2: 2
+      r2: 2,
+      r3: 2
     }
 
   }
@@ -32,74 +44,64 @@ class App extends Component {
     csv('data/data0.csv').then(async (data) => {
       await data.forEach(row => {
         
-        this.state.rssi.push(row.RSSI);
-        this.state.time.push(row.TIME);
+        this.state.dataZero.rssi.push(row.RSSI);
+        this.state.dataZero.time.push(row.TIME);
         let kf = new KalmanFilter({R: 0.00001, Q: 10});
-        this.state.rssi.map((rssi) => {
+        this.state.dataZero.rssi.map((rssi) => {
             let exponent = (A - (parseInt(rssi, 10)*-1))/(10*n)
-            this.state.distance.push(Math.exp(exponent));
-            this.state.kalman.push(kf.filter(Math.exp(exponent)));
+            this.state.dataZero.distance.push(Math.exp(exponent));
+            this.state.dataZero.kalman.push(kf.filter(Math.exp(exponent)));
           })
         })
 
-        const sum = this.state.kalman.reduce((a, b) => {
+        const sum = this.state.dataZero.kalman.reduce((a, b) => {
           return a + b;
         }, 0)
 
-        this.setState({r1: sum/this.state.distance.length});
+        this.setState({r1: sum/this.state.dataZero.distance.length});
 
     });
 
     csv('data/data1.csv').then(async (data) => {
-      let rssiList = [];
-      let time = [];
-      let distance = [];
-      let kalman = [];
-
       await data.forEach(row => {
-
-        rssiList.push(row.RSSI);
-        time.push(row.TIME);
+        
+        this.state.dataOne.rssi.push(row.RSSI);
+        this.state.dataOne.time.push(row.TIME);
         let kf = new KalmanFilter({R: 0.00001, Q: 10});
-
-        rssiList.map((rssi) => {
+        this.state.dataOne.rssi.map((rssi) => {
             let exponent = (A - (parseInt(rssi, 10)*-1))/(10*n)
-            distance.push(Math.exp(exponent));
-            kalman.push(kf.filter(Math.exp(exponent)));
+            this.state.dataOne.distance.push(Math.exp(exponent));
+            this.state.dataOne.kalman.push(kf.filter(Math.exp(exponent)));
           })
         })
 
-        const sum = kalman.reduce((a, b) => {
+        const sum = this.state.dataOne.kalman.reduce((a, b) => {
           return a + b;
         }, 0)
 
-        this.setState({r2: sum/this.state.distance.length});
+        this.setState({r2: sum/this.state.dataOne.distance.length});
+
     });
 
     csv('data/data2.csv').then(async (data) => {
-      let rssiList = [];
-      let time = [];
-      let distance = [];
-      let kalman = [];
-
       await data.forEach(row => {
-
-        rssiList.push(row.RSSI);
-        time.push(row.TIME);
+        
+        this.state.dataTwo.rssi.push(row.RSSI);
+        this.state.dataTwo.time.push(row.TIME);
         let kf = new KalmanFilter({R: 0.00001, Q: 10});
-
-        rssiList.map((rssi) => {
+        this.state.dataTwo.rssi.map((rssi) => {
             let exponent = (A - (parseInt(rssi, 10)*-1))/(10*n)
-            distance.push(Math.exp(exponent));
-            kalman.push(kf.filter(Math.exp(exponent)));
+            this.state.dataTwo.distance.push(Math.exp(exponent));
+            this.state.dataTwo.kalman.push(kf.filter(Math.exp(exponent)));
           })
         })
 
-        const sum = kalman.reduce((a, b) => {
+        const sum = this.state.dataTwo.kalman.reduce((a, b) => {
           return a + b;
         }, 0)
 
-        this.setState({r3: sum/this.state.distance.length});
+        this.setState({r3: sum/this.state.dataTwo.distance.length});
+
     });
 
   }
@@ -108,10 +110,21 @@ class App extends Component {
    return( 
     <div className='App'>
       <Tabs defaultActiveKey="map" id="uncontrolled-tab-example">
-        <Tab eventKey="data" title="Data">
-          <RssiChart time={this.state.time} rssi={this.state.rssi}/>
-          <DistanceChart time={this.state.time} distance={this.state.distance} kalman={this.state.kalman}/>
+        <Tab eventKey="nodeZero" title="Node Zero">
+          <RssiChart time={this.state.dataZero.time} rssi={this.state.dataZero.rssi}/>
+          <DistanceChart time={this.state.dataZero.time} distance={this.state.dataZero.distance} kalman={this.state.dataZero.kalman}/>
         </Tab>
+
+        <Tab eventKey="nodeOne" title="Node One">
+          <RssiChart time={this.state.dataOne.time} rssi={this.state.dataOne.rssi}/>
+          <DistanceChart time={this.state.dataOne.time} distance={this.state.dataOne.distance} kalman={this.state.dataOne.kalman}/>
+        </Tab>
+
+        <Tab eventKey="nodeTwo" title="Node Two">
+          <RssiChart time={this.state.dataTwo.time} rssi={this.state.dataTwo.rssi}/>
+          <DistanceChart time={this.state.dataTwo.time} distance={this.state.dataTwo.distance} kalman={this.state.dataTwo.kalman}/>
+        </Tab>
+        
         <Tab eventKey="map" title="Map">
           <Map r1={this.state.r1} r2={this.state.r2} r3={this.state.r3}/>
         </Tab>
