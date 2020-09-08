@@ -13,6 +13,13 @@ class DistanceChart extends Component {
                   label:'Distance (m)',
                   data:this.props.distance,
                   backgroundColor: 'rgba(255, 99, 132, 0.6)'
+                },
+                {
+                  label:'Filtered Distance (m)',
+                  data:this.props.kalman,
+                  backgroundColor: 'rgba(99, 132, 255, 0.6)',
+                  borderColor: 'rgba(99, 132, 255, 0.6)',
+                  fill: false
                 }
               ]
             }
