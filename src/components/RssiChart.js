@@ -27,8 +27,19 @@ class RssiChart extends Component {
             <div className="chart">
                 <Bar
                     data={this.state.chartData}
-                    options={{ maintainAspectRatio: true, responsive: true }}
-                    />
+                    options={{ maintainAspectRatio: true, 
+                      responsive: true, 
+                      scales: {
+                        yAxes: [{
+                          display: true,
+                          ticks: {
+                              suggestedMax: 90,
+                              suggestedMin: 50,   // minimum value will be 0.
+                          }
+                      }]
+                      }}}
+          />
+                    
             </div>
         )
     }

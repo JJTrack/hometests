@@ -31,7 +31,17 @@ class DistanceChart extends Component {
             <div className="chart">
                 <Line
                     data={this.state.chartData}
-                    options={{ maintainAspectRatio: true, responsive: true }}
+                    options={{ maintainAspectRatio: true, 
+                                responsive: true, 
+                                scales: {
+                                  yAxes: [{
+                                    display: true,
+                                    ticks: {
+                                        suggestedMax: 5,
+                                        beginAtZero: true   // minimum value will be 0.
+                                    }
+                                }]
+                                }}}
                     />
             </div>
         )

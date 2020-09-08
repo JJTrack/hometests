@@ -22,16 +22,10 @@ const node3 = {
 let nodes = [node1, node2, node3];
 
 
-
-
 class Map extends Component {
 
     constructor (props) {
         super(props);
-    
-        this.state = {
-            r1: this.props.r1
-        }
     
     }
 
