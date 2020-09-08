@@ -26,6 +26,10 @@ class Map extends Component {
 
     constructor (props) {
         super(props);
+
+        this.state = {
+            radiusState: "on"
+        }
     
     }
 
@@ -58,29 +62,38 @@ class Map extends Component {
         });
 
         // Draw nodes with radiuses
-        ctx.beginPath();
-        ctx.arc(node1.x, node1.y, this.props.r1*200, 0, 2 * Math.PI, false);
-        ctx.strokeStyle = 'rgba(255, 0, 100, 0.8)';
-        ctx.fillStyle = 'rgba(255, 0, 100, 0.2)';
-        ctx.stroke();
-        ctx.fill();
-        ctx.closePath();
 
-        ctx.beginPath();
-        ctx.arc(node2.x * 20, node2.y * 20, this.props.r2*200, 0, 2 * Math.PI, false);
-        ctx.strokeStyle = 'rgba(255, 0, 100, 0.8)';
-        ctx.fillStyle = 'rgba(255, 0, 100, 0.2)';
-        ctx.stroke();
-        ctx.fill();
-        ctx.closePath();
+        if(this.state.radiusState == "off") {
+            ctx.beginPath();
+            ctx.arc(node1.x, node1.y, this.props.r1*200, 0, 2 * Math.PI, false);
+            ctx.strokeStyle = 'rgba(255, 0, 100, 0.8)';
+            ctx.fillStyle = 'rgba(255, 0, 100, 0.2)';
+            ctx.stroke();
+            ctx.fill();
+            ctx.closePath();
 
-        ctx.beginPath();
-        ctx.arc(node3.x * 20, node3.y * 20, this.props.r3*200, 0, 2 * Math.PI, false);
-        ctx.strokeStyle = 'rgba(255, 0, 100, 0.8)';
-        ctx.fillStyle = 'rgba(255, 0, 100, 0.2)';
-        ctx.stroke();
-        ctx.fill();
-        ctx.closePath();
+            ctx.beginPath();
+            ctx.arc(node2.x * 20, node2.y * 20, this.props.r2*200, 0, 2 * Math.PI, false);
+            ctx.strokeStyle = 'rgba(255, 0, 100, 0.8)';
+            ctx.fillStyle = 'rgba(255, 0, 100, 0.2)';
+            ctx.stroke();
+            ctx.fill();
+            ctx.closePath();
+
+            ctx.beginPath();
+            ctx.arc(node3.x * 20, node3.y * 20, this.props.r3*200, 0, 2 * Math.PI, false);
+            ctx.strokeStyle = 'rgba(255, 0, 100, 0.8)';
+            ctx.fillStyle = 'rgba(255, 0, 100, 0.2)';
+            ctx.stroke();
+            ctx.fill();
+            ctx.closePath();
+        }
+    }
+
+    toggleRadius = () => {
+        this.setState({
+            radiusState: this.state.radiusState == "on" ? "off" : "on"
+        })
     }
     
 
@@ -88,6 +101,10 @@ class Map extends Component {
         return(
             <div className="chart" >
                 <canvas ref={canvasMap => this.canvasMap = canvasMap} className="Map"> </canvas>
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="customSwitches" onChange={this.toggleRadius}></input>
+                    <label class="custom-control-label" for="customSwitches">Turn radius {this.state.radiusState}</label>
+                </div>
             </div>
         )
     }
