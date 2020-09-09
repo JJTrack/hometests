@@ -66,7 +66,13 @@ class Map extends Component {
 
         // Draw beacon
         let [y, x] = this.getCalculation(this.props.r1, this.props.r2, this.props.r3);
-        ctx.fillStyle = "rgba(255, 0, 50, 0.7)";
+        ctx.fillStyle = "rgba(100, 0, 200, 0.7)";
+        ctx.fillRect( x * 200, y  * 200, 20, 20);
+        
+        
+        // Draw beacon
+        [y, x] = this.getCalculation(2.14, 2.08, 2.14);
+        ctx.fillStyle = "rgba(0, 200, 200, 0.7)";
         ctx.fillRect( x * 200, y  * 200, 20, 20); 
 
         if(this.state.radiusState == "off") {
@@ -78,8 +84,8 @@ class Map extends Component {
         nodes.forEach(node => {
             ctx.beginPath();
             ctx.arc(node.x * 200, node.y * 200, node.r*200, 0, 2 * Math.PI, false);
-            ctx.strokeStyle = 'rgba(255, 0, 100, 0.8)';
-            ctx.fillStyle = 'rgba(255, 0, 100, 0.2)';
+            ctx.strokeStyle = 'rgba(100, 0, 200, 0.8)';
+            ctx.fillStyle = 'rgba(100, 0, 200, 0.1)';
             ctx.stroke();
             ctx.fill();
             ctx.closePath();
@@ -114,9 +120,9 @@ class Map extends Component {
 
                 <canvas ref={canvasMap => this.canvasMap = canvasMap} className="Map"> </canvas>
 
-                <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="customSwitches" onChange={this.toggleRadius}></input>
-                    <label class="custom-control-label" for="customSwitches">Turn radius {this.state.radiusState}</label>
+                <div className="custom-control custom-switch">
+                    <input type="checkbox" className="custom-control-input" id="customSwitches" onChange={this.toggleRadius}></input>
+                    <label className="custom-control-label" htmlFor="customSwitches">Turn radius {this.state.radiusState}</label>
                 </div>
 
             </div>

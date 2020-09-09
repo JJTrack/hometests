@@ -41,7 +41,7 @@ class App extends Component {
   }
 
   componentWillMount() {
-
+    
     csv(`data/${this.state.folder}/data0.csv`).then(async (data) => {
       await data.forEach(row => {
         
@@ -57,7 +57,7 @@ class App extends Component {
 
         const sum = this.state.dataZero.kalman.reduce((a, b) => {
           return a + b;
-        }, 0)
+        }, 0);
 
         this.setState({r1: sum/this.state.dataZero.distance.length});
 
@@ -133,12 +133,7 @@ class App extends Component {
 
       </Tabs>
 
-
-      
-
-
     </div>
-
 
     )
   }
