@@ -10,13 +10,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 let A = -65.7;
-let n = 2;
+let n = 1.5;
 
 class App extends Component {
   constructor (props) {
     super(props);
 
     this.state = {
+      folder: "TestOne",
       dataZero: {rssi:[],
       time:[],
       distance:[],
@@ -41,7 +42,7 @@ class App extends Component {
 
   componentWillMount() {
 
-    csv('data/data0.csv').then(async (data) => {
+    csv(`data/${this.state.folder}/data0.csv`).then(async (data) => {
       await data.forEach(row => {
         
         this.state.dataZero.rssi.push(row.RSSI);
@@ -62,7 +63,7 @@ class App extends Component {
 
     });
 
-    csv('data/data1.csv').then(async (data) => {
+    csv(`data/${this.state.folder}/data1.csv`).then(async (data) => {
       await data.forEach(row => {
         
         this.state.dataOne.rssi.push(row.RSSI);
@@ -83,7 +84,7 @@ class App extends Component {
 
     });
 
-    csv('data/data2.csv').then(async (data) => {
+    csv(`data/${this.state.folder}/data2.csv`).then(async (data) => {
       await data.forEach(row => {
         
         this.state.dataTwo.rssi.push(row.RSSI);
