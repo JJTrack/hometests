@@ -47,7 +47,7 @@ class Map extends Component {
     }
 
     componentDidUpdate() {
-        console.log(this.props.r1);
+        this.updateCalculation(this.props.r1, this.props.r2, this.props.r3);
         this.drawNodesAndBeacons(this.canvasMap, nodes);
     }
 
@@ -88,6 +88,18 @@ class Map extends Component {
             ctx.fill();
             ctx.closePath();
         }
+    }
+
+    updateCalculation = (r1, r2, r3) => {
+        let x, y;
+        // Just using Three Cartesian dimensions, three measured slant ranges
+        let rx = 29;
+        let ry = 29;
+    
+        x = ((Math.pow(r1, 2) - Math.pow(r3, 2)) + Math.pow(rx, 2)) / (rx*2);
+        y = ((Math.pow(r1, 2) - Math.pow(r2, 2)) + Math.pow(ry, 2)) / (ry*2);
+
+        console.log("x: ", x, " y: ", y, r1, r2, r3); 
     }
 
     toggleRadius = () => {

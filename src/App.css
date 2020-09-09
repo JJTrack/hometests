@@ -3,7 +3,6 @@
 }
 
 .Map {
-  border: 1px solid rgba(100, 100, 100, 0.5);
-  box-shadow: 0px 0px 23px grey;
+  box-shadow: 0px 0px 23px rgba(150, 150, 150, 0.4);
   margin: 50px auto;
 }
