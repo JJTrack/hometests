@@ -3,7 +3,7 @@ import KalmanFilter from 'kalmanjs'
 import RssiChart from './components/RssiChart'
 import DistanceChart from './components/DistanceChart'
 import Map from './components/Map'
-import {Tabs, Tab} from 'react-bootstrap'
+import {Tabs, Tab, DropdownButton, Dropdown} from 'react-bootstrap'
 import { csv } from 'd3'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -124,11 +124,20 @@ class App extends Component {
           <RssiChart time={this.state.dataTwo.time} rssi={this.state.dataTwo.rssi}/>
           <DistanceChart time={this.state.dataTwo.time} distance={this.state.dataTwo.distance} kalman={this.state.dataTwo.kalman}/>
         </Tab>
-        
+
         <Tab eventKey="map" title="Map">
           <Map r1={this.state.r1} r2={this.state.r2} r3={this.state.r3}/>
         </Tab>
+        
+        <DropdownButton id="dropdown-button-drop-down" title="Dropdownbutton">
+          <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+          <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+          <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+        </DropdownButton>
+
       </Tabs>
+
+
     </div>
 
 
