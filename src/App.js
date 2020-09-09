@@ -9,7 +9,7 @@ import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-let A = -67;
+let A = -68;
 let n = 1.5;
 
 class App extends Component {
@@ -17,7 +17,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      folder: "TestOne",
+      folder: "TestTwo",
       dataZero: {rssi:[],
       time:[],
       distance:[],
@@ -47,7 +47,7 @@ class App extends Component {
         
         this.state.dataZero.rssi.push(row.RSSI);
         this.state.dataZero.time.push(row.TIME);
-        let kf = new KalmanFilter({R: 0.00001, Q: 10});
+        let kf = new KalmanFilter({R: 0.00001, Q: 3});
         this.state.dataZero.rssi.map((rssi) => {
             let exponent = (A - (parseInt(rssi, 10)*-1))/(10*n)
             this.state.dataZero.distance.push(Math.exp(exponent));

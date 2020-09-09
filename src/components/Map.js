@@ -1,22 +1,23 @@
 import React, { Component } from 'react'
+const trilat = require("trilat");
 
 
 const node1 = {
     x: 0,
     y: 0,
-    z: 0
+    r: 0
 }
 
 const node2 = {
-    x: 29,
+    x: 2.9,
     y: 0,
-    z: 0
+    r: 0
 }
 
 const node3 = {
-    x: 29,
-    y: 29,
-    z: 0
+    x: 2.9,
+    y: 2.9,
+    r: 0
 }
 
 let nodes = [node1, node2, node3];
@@ -47,7 +48,9 @@ class Map extends Component {
     }
 
     componentDidUpdate() {
-        this.updateCalculation(this.props.r1, this.props.r2, this.props.r3);
+        node1.r = this.props.r1;
+        node2.r = this.props.r2;
+        node3.r = this.props.r3;
         this.drawNodesAndBeacons(this.canvasMap, nodes);
     }
 
@@ -58,48 +61,40 @@ class Map extends Component {
         // Draw nodes
         nodes.forEach(node => {
             ctx.fillStyle = "rgba(255, 0, 50, 0.7)";
-            ctx.fillRect(node.x * 20, node.y * 20, 20, 20); 
+            ctx.fillRect(node.x * 200, node.y * 200, 20, 20); 
         });
 
         // Draw nodes with radiuses
+        let [y, x] = this.getCalculation(this.props.r1, this.props.r2, this.props.r3);
+        ctx.fillStyle = "rgba(255, 0, 50, 0.7)";
+        ctx.fillRect( x * 200, y  * 200, 20, 20); 
 
         if(this.state.radiusState == "off") {
-            ctx.beginPath();
-            ctx.arc(node1.x, node1.y, this.props.r1*200, 0, 2 * Math.PI, false);
-            ctx.strokeStyle = 'rgba(255, 0, 100, 0.8)';
-            ctx.fillStyle = 'rgba(255, 0, 100, 0.2)';
-            ctx.stroke();
-            ctx.fill();
-            ctx.closePath();
-
-            ctx.beginPath();
-            ctx.arc(node2.x * 20, node2.y * 20, this.props.r2*200, 0, 2 * Math.PI, false);
-            ctx.strokeStyle = 'rgba(255, 0, 100, 0.8)';
-            ctx.fillStyle = 'rgba(255, 0, 100, 0.2)';
-            ctx.stroke();
-            ctx.fill();
-            ctx.closePath();
-
-            ctx.beginPath();
-            ctx.arc(node3.x * 20, node3.y * 20, this.props.r3*200, 0, 2 * Math.PI, false);
-            ctx.strokeStyle = 'rgba(255, 0, 100, 0.8)';
-            ctx.fillStyle = 'rgba(255, 0, 100, 0.2)';
-            ctx.stroke();
-            ctx.fill();
-            ctx.closePath();
+            nodes.forEach(node => {
+                ctx.beginPath();
+                ctx.arc(node.x * 200, node.y * 200, node.r*200, 0, 2 * Math.PI, false);
+                ctx.strokeStyle = 'rgba(255, 0, 100, 0.8)';
+                ctx.fillStyle = 'rgba(255, 0, 100, 0.2)';
+                ctx.stroke();
+                ctx.fill();
+                ctx.closePath();
+            })
         }
     }
 
-    updateCalculation = (r1, r2, r3) => {
-        let x, y;
-        // Just using Three Cartesian dimensions, three measured slant ranges
-        let rx = 29;
-        let ry = 29;
-    
-        x = ((Math.pow(r1, 2) - Math.pow(r3, 2)) + Math.pow(rx, 2)) / (rx*2);
-        y = ((Math.pow(r1, 2) - Math.pow(r2, 2)) + Math.pow(ry, 2)) / (ry*2);
+getCalculation = (r1, r2, r3) => {
 
-        console.log("x: ", x, " y: ", y, r1, r2, r3); 
+        let input = [
+            [node1.x, node1.y, r1],
+            [node2.x, node2.y, r2],
+            [node3.x, node3.y, r3]
+        ]
+
+        let output = trilat(input);
+
+        console.log("x: ", output[0], " y: ", output[1], r1, r2, r3);
+        
+        return output;
     }
 
     toggleRadius = () => {
@@ -111,12 +106,15 @@ class Map extends Component {
 
     render() {
         return(
-            <div className="chart" >
+            <div className="chart">
+                
                 <canvas ref={canvasMap => this.canvasMap = canvasMap} className="Map"> </canvas>
+
                 <div class="custom-control custom-switch">
                     <input type="checkbox" class="custom-control-input" id="customSwitches" onChange={this.toggleRadius}></input>
                     <label class="custom-control-label" for="customSwitches">Turn radius {this.state.radiusState}</label>
                 </div>
+
             </div>
         )
     }
