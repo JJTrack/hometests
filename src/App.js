@@ -131,6 +131,8 @@ class App extends Component {
           <Map r1={this.state.r1} r2={this.state.r2} r3={this.state.r3}/>
         </Tab>
 
+        <h1> Version 1</h1>
+
       </Tabs>
 
     </div>
