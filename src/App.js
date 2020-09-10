@@ -17,7 +17,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      folder: "TestTwo",
+      folder: "TestOne",
       dataZero: {rssi:[],
       time:[],
       distance:[],
@@ -43,6 +43,7 @@ class App extends Component {
   componentWillMount() {
     
     csv(`data/${this.state.folder}/data0.csv`).then(async (data) => {
+      console.log(data);
       await data.forEach(row => {
         this.state.dataZero.rssi.push(row.RSSI);
         this.state.dataZero.time.push(row.TIME);

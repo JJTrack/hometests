@@ -36,7 +36,7 @@ class Map extends Component {
 
     componentWillMount() {
         this.setState({
-            canvasSize: {canvasWidth: 600, canvasHeight: 600}
+            canvasSize: {canvasWidth: 1000, canvasHeight: 1000}
         })
     }
 
