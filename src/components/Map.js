@@ -71,7 +71,7 @@ class Map extends Component {
         
         
         // Draw beacon
-        [y, x] = this.getCalculation(2.14, 2.08, 2.14);
+        [y, x] = this.getCalculation(3.5, 3.5, 3.5);
         ctx.fillStyle = "rgba(0, 200, 200, 0.7)";
         ctx.fillRect( y * 200, x  * 200, 20, 20); 
 

@@ -9,7 +9,7 @@ import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-let A = -68;
+let A = -67;
 let n = 1.5;
 
 class App extends Component {
@@ -17,18 +17,22 @@ class App extends Component {
     super(props);
 
     this.state = {
-      folder: "TestOne",
-      dataZero: {rssi:[],
+
+      folder: "TestThree",
+      dataZero: {
+        rssi:[],
+        time:[],
+        distance:[],
+        kalman:[]
+    },
+    dataOne: {
+      rssi:[],
       time:[],
       distance:[],
       kalman:[]
     },
-    dataOne: {rssi:[],
-      time:[],
-      distance:[],
-      kalman:[]
-    },
-    dataTwo: {rssi:[],
+    dataTwo: {
+      rssi:[],
       time:[],
       distance:[],
       kalman:[]
@@ -41,11 +45,11 @@ class App extends Component {
   }
 
   componentDidMount() {
-    
+
     csv(`${process.env.PUBLIC_URL}/data/${this.state.folder}/data0.csv`).then(async (data) => {
+
       console.log(data);
       await data.forEach(row => {
-        
         this.state.dataZero.rssi.push(row.RSSI);
         this.state.dataZero.time.push(row.TIME);
         let kf = new KalmanFilter({R: 0.00001, Q: 3});
@@ -69,7 +73,7 @@ class App extends Component {
         
         this.state.dataOne.rssi.push(row.RSSI);
         this.state.dataOne.time.push(row.TIME);
-        let kf = new KalmanFilter({R: 0.00001, Q: 10});
+        let kf = new KalmanFilter({R: 0.00001, Q: 3});
         this.state.dataOne.rssi.map((rssi) => {
             let exponent = (A - (parseInt(rssi, 10)*-1))/(10*n)
             this.state.dataOne.distance.push(Math.exp(exponent));
@@ -90,7 +94,7 @@ class App extends Component {
         
         this.state.dataTwo.rssi.push(row.RSSI);
         this.state.dataTwo.time.push(row.TIME);
-        let kf = new KalmanFilter({R: 0.00001, Q: 10});
+        let kf = new KalmanFilter({R: 0.00001, Q: 3});
         this.state.dataTwo.rssi.map((rssi) => {
             let exponent = (A - (parseInt(rssi, 10)*-1))/(10*n)
             this.state.dataTwo.distance.push(Math.exp(exponent));
@@ -131,6 +135,8 @@ class App extends Component {
         <Tab eventKey="map" title="Map">
           <Map r1={this.state.r1} r2={this.state.r2} r3={this.state.r3}/>
         </Tab>
+
+        <h1> Version 1</h1>
 
       </Tabs>
 
