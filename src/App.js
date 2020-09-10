@@ -17,7 +17,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      folder: "TestTwo",
+      folder: "TestOne",
       dataZero: {rssi:[],
       time:[],
       distance:[],
@@ -40,9 +40,10 @@ class App extends Component {
 
   }
 
-  componentWillMount() {
+  componentDidMount() {
     
-    csv(`data/${this.state.folder}/data0.csv`).then(async (data) => {
+    csv(`${process.env.PUBLIC_URL}/data/${this.state.folder}/data0.csv`).then(async (data) => {
+      console.log(data);
       await data.forEach(row => {
         
         this.state.dataZero.rssi.push(row.RSSI);
@@ -57,13 +58,13 @@ class App extends Component {
 
         const sum = this.state.dataZero.kalman.reduce((a, b) => {
           return a + b;
-        }, 0);
+        }, 0)
 
         this.setState({r1: sum/this.state.dataZero.distance.length});
 
     });
 
-    csv(`data/${this.state.folder}/data1.csv`).then(async (data) => {
+    csv(`${process.env.PUBLIC_URL}/data/${this.state.folder}/data1.csv`).then(async (data) => {
       await data.forEach(row => {
         
         this.state.dataOne.rssi.push(row.RSSI);
@@ -84,7 +85,7 @@ class App extends Component {
 
     });
 
-    csv(`data/${this.state.folder}/data2.csv`).then(async (data) => {
+    csv(`${process.env.PUBLIC_URL}/data/${this.state.folder}/data2.csv`).then(async (data) => {
       await data.forEach(row => {
         
         this.state.dataTwo.rssi.push(row.RSSI);

@@ -9,14 +9,14 @@ const node1 = {
 }
 
 const node2 = {
-    x: 2.9,
+    x: 4.9,
     y: 0,
     r: 0
 }
 
 const node3 = {
-    x: 2.9,
-    y: 2.9,
+    x: 4.9,
+    y: 4.9,
     r: 0
 }
 
@@ -36,7 +36,7 @@ class Map extends Component {
 
     componentWillMount() {
         this.setState({
-            canvasSize: {canvasWidth: 600, canvasHeight: 600}
+            canvasSize: {canvasWidth: 1000, canvasHeight: 1000}
         })
     }
 
@@ -73,7 +73,7 @@ class Map extends Component {
         // Draw beacon
         [y, x] = this.getCalculation(2.14, 2.08, 2.14);
         ctx.fillStyle = "rgba(0, 200, 200, 0.7)";
-        ctx.fillRect( x * 200, y  * 200, 20, 20); 
+        ctx.fillRect( y * 200, x  * 200, 20, 20); 
 
         if(this.state.radiusState == "off") {
             this.drawRadiuses(ctx);
