@@ -44,7 +44,6 @@ class App extends Component {
     
     csv(`data/${this.state.folder}/data0.csv`).then(async (data) => {
       await data.forEach(row => {
-        
         this.state.dataZero.rssi.push(row.RSSI);
         this.state.dataZero.time.push(row.TIME);
         let kf = new KalmanFilter({R: 0.00001, Q: 3});
