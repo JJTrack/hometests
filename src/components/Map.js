@@ -9,14 +9,14 @@ const node1 = {
 }
 
 const node2 = {
-    x: 2.9,
+    x: 4.9,
     y: 0,
     r: 0
 }
 
 const node3 = {
-    x: 2.9,
-    y: 2.9,
+    x: 4.9,
+    y: 4.9,
     r: 0
 }
 

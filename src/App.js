@@ -9,7 +9,7 @@ import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-let A = -68;
+let A = -50;
 let n = 1.5;
 
 class App extends Component {
