@@ -15,7 +15,21 @@ class DistanceChart extends Component {
                   backgroundColor: 'rgba(255, 99, 132, 0.6)'
                 },
                 {
-                  label:'Filtered Distance (m)',
+                  label:'Winsor (m)',
+                  data:this.props.winsor,
+                  backgroundColor: 'rgba(99, 132, 255, 0.6)',
+                  borderColor: 'rgba(99, 255, 55, 0.6)',
+                  fill: false
+                },
+                {
+                  label:'Henderson (m)',
+                  data:this.props.henderson,
+                  backgroundColor: 'rgba(255, 132, 255, 0.6)',
+                  borderColor: 'rgba(255, 255, 55, 0.6)',
+                  fill: false
+                },
+                {
+                  label:'Kalman (m)',
                   data:this.props.kalman,
                   backgroundColor: 'rgba(99, 132, 255, 0.6)',
                   borderColor: 'rgba(99, 132, 255, 0.6)',

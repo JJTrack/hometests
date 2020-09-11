@@ -65,15 +65,14 @@ class Map extends Component {
         });
 
         // Draw beacon
-        let [y, x] = this.getCalculation(this.props.r1, this.props.r2, this.props.r3);
+        let [x, y] = this.getCalculation(this.props.r1, this.props.r2, this.props.r3);
         ctx.fillStyle = "rgba(100, 0, 200, 0.7)";
         ctx.fillRect( x * 200, y  * 200, 20, 20);
         
         
-        // Draw beacon
-        [y, x] = this.getCalculation(3.5, 3.5, 3.5);
+        // Draw expected beacon
         ctx.fillStyle = "rgba(0, 200, 200, 0.7)";
-        ctx.fillRect( y * 200, x  * 200, 20, 20); 
+        ctx.fillRect( 2.5 * 200, 2.5  * 200, 20, 20); 
 
         if(this.state.radiusState == "off") {
             this.drawRadiuses(ctx);

@@ -16,7 +16,8 @@
     "react-chartjs-2": "^2.10.0",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3",
-    "trilat": "^1.0.0"
+    "trilat": "^1.0.0",
+    "unirand": "^2.10.0"
   },
   "scripts": {
     "start": "react-scripts start",
