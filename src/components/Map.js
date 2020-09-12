@@ -22,6 +22,13 @@ const node3 = {
 
 let nodes = [node1, node2, node3];
 
+let calc = {
+    x: 0,
+    y: 0,
+    actualX: 2.5,
+    actualY: 2.5
+}
+
 
 class Map extends Component {
 
@@ -29,7 +36,7 @@ class Map extends Component {
         super(props);
 
         this.state = {
-            radiusState: "on"
+            radiusState: "on",
         }
     
     }
@@ -65,14 +72,14 @@ class Map extends Component {
         });
 
         // Draw beacon
-        let [x, y] = this.getCalculation(this.props.r1, this.props.r2, this.props.r3);
+        [calc.x, calc.y] = this.getCalculation(this.props.r1, this.props.r2, this.props.r3);
         ctx.fillStyle = "rgba(100, 0, 200, 0.7)";
-        ctx.fillRect( x * 200, y  * 200, 20, 20);
+        ctx.fillRect( calc.x * 200, calc.y  * 200, 20, 20);
         
         
         // Draw expected beacon
         ctx.fillStyle = "rgba(0, 200, 200, 0.7)";
-        ctx.fillRect( 2.5 * 200, 2.5  * 200, 20, 20); 
+        ctx.fillRect( calc.actualX * 200, calc.actualY  * 200, 20, 20); 
 
         if(this.state.radiusState == "off") {
             this.drawRadiuses(ctx);
@@ -101,7 +108,6 @@ class Map extends Component {
 
         let output = trilat(input);
 
-        console.log("x: ", output[0], " y: ", output[1], r1, r2, r3);
         
         return output;
     }
@@ -119,9 +125,20 @@ class Map extends Component {
 
                 <canvas ref={canvasMap => this.canvasMap = canvasMap} className="Map"> </canvas>
 
-                <div className="custom-control custom-switch">
-                    <input type="checkbox" className="custom-control-input" id="customSwitches" onChange={this.toggleRadius}></input>
-                    <label className="custom-control-label" htmlFor="customSwitches">Turn radius {this.state.radiusState}</label>
+                <div className="extras">
+
+                    <h1>Calculations</h1>
+
+                    <p>Actual X: {calc.actualX}</p> 
+                    <p>Calculated X: {calc.x}</p> 
+                    <p>Actual Y: {calc.actualY}</p> 
+                    <p>Calculated Y: {calc.y}</p> 
+
+
+                    <div className="custom-control custom-switch">
+                        <input type="checkbox" className="custom-control-input" id="customSwitches" onChange={this.toggleRadius}></input>
+                        <label className="custom-control-label" htmlFor="customSwitches">Turn radius {this.state.radiusState}</label>
+                    </div>
                 </div>
 
             </div>
