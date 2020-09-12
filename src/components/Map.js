@@ -125,7 +125,9 @@ class Map extends Component {
         return(
             <div className="chart">
 
-                <canvas ref={canvasMap => this.canvasMap = canvasMap} className="Map"> </canvas>
+                <div className="mapContainer">
+                    <canvas ref={canvasMap => this.canvasMap = canvasMap} className="Map"> </canvas>
+                </div>
 
                 <div className="extras">
 
