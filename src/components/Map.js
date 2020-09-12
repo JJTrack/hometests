@@ -72,7 +72,7 @@ class Map extends Component {
         
         // Draw expected beacon
         ctx.fillStyle = "rgba(0, 200, 200, 0.7)";
-        ctx.fillRect( 2.5 * 200, 2.5  * 200, 20, 20); 
+        ctx.fillRect( 3 * 200, 2  * 200, 20, 20); 
 
         if(this.state.radiusState == "off") {
             this.drawRadiuses(ctx);
@@ -96,7 +96,8 @@ class Map extends Component {
         let input = [
             [node1.x, node1.y, r1],
             [node2.x, node2.y, r2],
-            [node3.x, node3.y, r3]
+            [node3.x, node3.y, r3],
+            [node2.x, node2.y, r2]
         ]
 
         let output = trilat(input);
