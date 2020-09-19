@@ -25,8 +25,8 @@ let nodes = [node1, node2, node3];
 let calc = {
     x: 0,
     y: 0,
-    actualX: 2.5,
-    actualY: 2.5
+    actualX: 3,
+    actualY: 2
 }
 
 
@@ -89,6 +89,7 @@ class Map extends Component {
 
     drawRadiuses(ctx) {
         nodes.forEach(node => {
+            console.log(node.x, node.y, node.r);
             ctx.beginPath();
             ctx.arc(node.x * 200, node.y * 200, node.r*200, 0, 2 * Math.PI, false);
             ctx.strokeStyle = 'rgba(100, 0, 200, 0.8)';

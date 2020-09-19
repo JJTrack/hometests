@@ -10,9 +10,18 @@ class DistanceChart extends Component {
               labels: this.props.time,
               datasets:[
                 {
+                  label:'RSSI (dBm / 10)',
+                  data:this.props.rssi,
+                  backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                  borderColor: 'rgba(255, 99, 132, 0.6)',
+                  fill: false
+                },
+                {
                   label:'Distance (m)',
                   data:this.props.distance,
-                  backgroundColor: 'rgba(255, 99, 132, 0.6)'
+                  backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                  borderColor: 'rgba(255, 155, 132, 0.6)',
+                  fill: false
                 },
                 {
                   label:'Winsor (m)',
