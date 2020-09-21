@@ -109,6 +109,7 @@ class App extends Component {
         
         this.state.dataOne.rssi.map((rssi) => {
             let exponent = (A - (parseInt(rssi, 10)*-1))/(10*n)
+            
             this.state.dataOne.distance.push(Math.exp(exponent));
             
           })
@@ -156,7 +157,7 @@ class App extends Component {
         })
 
         let winsorize = unirand.winsorize;
-        winsorize(this.state.dataOne.distance, 0.01, false).forEach((data) => {
+        winsorize(this.state.dataTwo.distance, 0.01, false).forEach((data) => {
           this.state.dataTwo.winsor.push(data);
         });
 
