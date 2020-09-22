@@ -21,7 +21,7 @@ let n = 2;
 class App extends Component {
   constructor (props) {
     super(props)
-    
+
     this.state = {
 
       folder: "5m/threextwo",
@@ -57,20 +57,36 @@ class App extends Component {
   }
 
   // Get data from csv files and put into appropriate arrays
-  collateData = async (file, dataObj) => {
+  collateData = async (file, dataObj, isLive) => {
     csv(`${process.env.PUBLIC_URL}/data/${this.state.folder}/${file}`).then(async (data) => {
 
-      await data.slice(Math.max(data.length - 24, 0)).forEach(row => {
+      if(isLive) {
+        dataObj.rssi.shift();
+        dataObj.time.shift();
+        dataObj.distance.shift();
+        let row = await data.slice(-1)[0];
+        dataObj.rssi.push(parseInt(row.RSSI, 10) / 10);
+        dataObj.time.push(row.TIME);
+        let exponent = (A - (parseInt(row.RSSI, 10) *-1))/(10*n)
+        dataObj.distance.push(Math.exp(exponent));
+        dataObj.winsor.shift();
+        dataObj.henderson.shift();
+        dataObj.kalman.shift(); 
 
-          // Get rssi and time from csv file
-          dataObj.rssi.push(parseInt(row.RSSI, 10) / 10);
-          dataObj.time.push(row.TIME);
-          
-          // Applying rssi to distance formula here
-          let exponent = (A - (parseInt(row.RSSI, 10) *-1))/(10*n)
-          dataObj.distance.push(Math.exp(exponent));      
-          
-      })
+      } else {
+          await data.slice(Math.max(data.length - 24, 0)).forEach(row => {
+
+            // Get rssi and time from csv file
+            dataObj.rssi.push(parseInt(row.RSSI, 10) / 10);
+            dataObj.time.push(row.TIME);
+            
+            // Applying rssi to distance formula here
+            let exponent = (A - (parseInt(row.RSSI, 10) *-1))/(10*n)
+            dataObj.distance.push(Math.exp(exponent));      
+            
+        })
+      }
+
 
         // Winsorise the data to remove extremeties
         // takes array of data, number between 0 and 0.5 for sensitivity 
@@ -113,17 +129,16 @@ class App extends Component {
 
   componentWillMount() {
 
-    this.collateData("data0.csv", this.state.dataZero);
-    this.collateData("data1.csv", this.state.dataOne);
-    this.collateData("data2.csv", this.state.dataTwo);
+    this.collateData("data0.csv", this.state.dataZero, false);
+    this.collateData("data1.csv", this.state.dataOne, false);
+    this.collateData("data2.csv", this.state.dataTwo, false);
     this.intervalID = setInterval(() => {this.updateData();}, 5000);
   }
 
   updateData = () => {
-    this.resetData();
-    this.collateData("data0.csv", this.state.dataZero);
-    this.collateData("data1.csv", this.state.dataOne);
-    this.collateData("data2.csv", this.state.dataTwo);
+    this.collateData("data0.csv", this.state.dataZero, true);
+    this.collateData("data1.csv", this.state.dataOne, true);
+    this.collateData("data2.csv", this.state.dataTwo, true);
 
   }
 
