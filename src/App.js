@@ -1,4 +1,8 @@
-import React, {Component} from 'react'
+import React, {Component, useEffect} from 'react'
+
+// Socket IO
+import socketIOClient from "socket.io-client";
+
 
 // Data smoothening libraries
 import KalmanFilter from 'kalmanjs'
@@ -14,7 +18,7 @@ import { csv } from 'd3'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
+const ENDPOINT = "http://127.0.0.1:3020";
 let A = -56;
 let n = 2;
 
@@ -111,66 +115,42 @@ class App extends Component {
           dataObj.kalman.push(kf.filter(data));
         });
 
-        let r = dataObj.kalman.slice(-1)[0];
-        console.log(r);
 
-        if(file == "data0.csv") {
-          this.setState({r1: r});
-        } else if(file == "data1.csv") {
-          this.setState({r2: r});
-        } else {
-          this.setState({r3: r});
-        }
 
     });
 
     return dataObj.kalman[-1];
   }
 
+
+
+
   componentWillMount() {
+    const socket = socketIOClient(ENDPOINT);
+    socket.emit("get data", "data");
+    socket.on("heres data", data => {
+      console.log(data);
+    });
 
     this.collateData("data0.csv", this.state.dataZero, false);
     this.collateData("data1.csv", this.state.dataOne, false);
     this.collateData("data2.csv", this.state.dataTwo, false);
-    this.intervalID = setInterval(() => {this.updateData();}, 5000);
+    this.intervalID = setInterval(() => {this.updateData();}, 1000);
+    this.radiusInterval = setInterval(() => {this.updateRadiuses();}, 5000);
+
   }
 
   updateData = () => {
     this.collateData("data0.csv", this.state.dataZero, true);
     this.collateData("data1.csv", this.state.dataOne, true);
     this.collateData("data2.csv", this.state.dataTwo, true);
-
   }
 
-  resetData = () => {
-
-    this.setState({
-      dataZero: {
-          rssi:[],
-          time:[],
-          distance:[],
-          winsor:[],
-          henderson:[],
-          kalman:[]
-      },
-      dataOne: {
-        rssi:[],
-        time:[],
-        distance:[],
-        winsor:[],
-        henderson:[],
-        kalman:[]
-      },
-      dataTwo: {
-        rssi:[],
-        time:[],
-        distance:[],
-        winsor:[],
-        henderson:[],
-        kalman:[]
-      }
-    });
-
+  updateRadiuses = () => {
+    let newr1 = this.state.dataZero.kalman.slice(-1)[0];
+    let newr2 = this.state.dataOne.kalman.slice(-1)[0];
+    let newr3 = this.state.dataTwo.kalman.slice(-1)[0];
+    this.setState({r1: newr1, r2: newr2, r3: newr3});
   }
 
 

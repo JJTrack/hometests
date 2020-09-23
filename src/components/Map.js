@@ -20,7 +20,13 @@ const node3 = {
     r: 0
 }
 
-let nodes = [node1, node2, node3];
+const node4 = {
+    x: 0,
+    y: 2.9,
+    r: 0
+}
+
+let nodes = [node1, node2, node3, node4];
 
 let calc = {
     x: 0,
@@ -58,6 +64,7 @@ class Map extends Component {
         node1.r = this.props.r1;
         node2.r = this.props.r2;
         node3.r = this.props.r3;
+        node4.r = this.props.r3;
         this.drawNodesAndBeacons(this.canvasMap, nodes);
     }
 
@@ -106,7 +113,7 @@ class Map extends Component {
             [node1.x, node1.y, r1],
             [node2.x, node2.y, r2],
             [node3.x, node3.y, r3],
-            [node2.x, node2.y, r2]
+            [node4.x, node4.y, r2]
         ]
 
         let output = trilat(input);

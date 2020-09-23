@@ -24,6 +24,11 @@ const csvWriterTwo = createCsvWriter({
     header: ['TIME', 'NODEUUID', 'BLEUUID', 'RSSI', 'PACKETID']
 });
 
+const csvWriterThree = createCsvWriter({
+    path: 'public/data/live/data3.csv',
+    header: ['TIME', 'NODEUUID', 'BLEUUID', 'RSSI', 'PACKETID']
+});
+
 // Start listening with the server on given port and host.
 server.listen(port, host, function() {
 	console.log(`server started on port ${port} at ${host}`);
@@ -54,7 +59,9 @@ function onClientConnection(sock){
 
 			let record = [[time, NodeUUID, BLEUUID, RSSI, PacketID]];
 
-			if(data[12] == 11) {
+			if(data[12] == 14) {
+				csvWriterThree.writeRecords(record).then( console.log("data Three written"));       // returns a promise
+			} else if(data[12] == 11) {
 				csvWriterOne.writeRecords(record).then( console.log("data One written"));       // returns a promise
 			} else if (data[12] == 12){
 				csvWriterTwo.writeRecords(record).then( console.log("data Two written"));       // returns a promise

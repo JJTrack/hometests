@@ -108,9 +108,13 @@ class DistanceChart extends Component {
                                         suggestedMax: 5,
                                         beginAtZero: true   // minimum value will be 0.
                                     }
-                                }],
-                                events: ['click']
-                                }}}
+                                  }]
+                                },
+                                animation: {
+                                  duration: 0,
+                                  easing: 'easeInOutBack'
+                                }
+                              }}
                       redraw
                     />
 
