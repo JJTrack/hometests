@@ -10,13 +10,6 @@ class DistanceChart extends Component {
           labels: this.props.data.time,
           datasets:[
             {
-              label:'RSSI (dBm / 10)',
-              data:this.props.data.rssi,
-              backgroundColor: 'rgba(255, 99, 132, 0.6)',
-              borderColor: 'rgba(255, 99, 132, 0.6)',
-              fill: false
-            },
-            {
               label:'Distance (m)',
               data:this.props.data.distance,
               backgroundColor: 'rgba(255, 99, 132, 0.6)',
@@ -54,13 +47,6 @@ class DistanceChart extends Component {
         let data = {
           labels: props.data.time,
           datasets:[
-            {
-              label:'RSSI (dBm / 10)',
-              data:props.data.rssi,
-              backgroundColor: 'rgba(255, 99, 132, 0.6)',
-              borderColor: 'rgba(255, 99, 132, 0.6)',
-              fill: false
-            },
             {
               label:'Distance (m)',
               data:props.data.distance,

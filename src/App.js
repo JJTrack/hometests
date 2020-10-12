@@ -117,13 +117,17 @@ class App extends Component {
           <DistanceChart data={this.state.dataZero}/>
         </Tab>
 
-        {/* <Tab eventKey="nodeOne" title="Node One">
-          <DistanceChart time={this.state.dataOne.time} rssi={this.state.dataOne.rssi} distance={this.state.dataOne.distance} kalman={this.state.dataOne.kalman}  winsor={this.state.dataOne.winsor} henderson={this.state.dataOne.henderson}/>
+        <Tab eventKey="nodeOne" title="Node One">
+          <DistanceChart data={this.state.dataOne}/>
         </Tab>
 
         <Tab eventKey="nodeTwo" title="Node Two">
-          <DistanceChart time={this.state.dataTwo.time} rssi={this.state.dataTwo.rssi} distance={this.state.dataTwo.distance} kalman={this.state.dataTwo.kalman}  winsor={this.state.dataTwo.winsor} henderson={this.state.dataTwo.henderson}/>
-        </Tab> */}
+          <DistanceChart data={this.state.dataTwo}/>
+        </Tab>
+
+        <Tab eventKey="nodeThree" title="Node Three">
+          <DistanceChart data={this.state.dataThree}/>
+        </Tab>
 
         <Tab eventKey="map" title="Map">
           <Map r1={this.state.r1} r2={this.state.r2} r3={this.state.r3} r4={this.state.r4}/>
