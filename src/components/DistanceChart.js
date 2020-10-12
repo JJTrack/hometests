@@ -7,39 +7,39 @@ class DistanceChart extends Component {
         super(props);
 
       this.chartData = {
-          labels: this.props.time,
+          labels: this.props.data.time,
           datasets:[
             {
               label:'RSSI (dBm / 10)',
-              data:this.props.rssi,
+              data:this.props.data.rssi,
               backgroundColor: 'rgba(255, 99, 132, 0.6)',
               borderColor: 'rgba(255, 99, 132, 0.6)',
               fill: false
             },
             {
               label:'Distance (m)',
-              data:this.props.distance,
+              data:this.props.data.distance,
               backgroundColor: 'rgba(255, 99, 132, 0.6)',
               borderColor: 'rgba(255, 155, 132, 0.6)',
               fill: false
             },
             {
               label:'Winsor (m)',
-              data:this.props.winsor,
+              data:this.props.data.winsor,
               backgroundColor: 'rgba(99, 132, 255, 0.6)',
               borderColor: 'rgba(99, 255, 55, 0.6)',
               fill: false
             },
             {
               label:'Henderson (m)',
-              data:this.props.henderson,
+              data:this.props.data.henderson,
               backgroundColor: 'rgba(255, 132, 255, 0.6)',
               borderColor: 'rgba(255, 255, 55, 0.6)',
               fill: false
             },
             {
               label:'Kalman (m)',
-              data:this.props.kalman,
+              data:this.props.data.kalman,
               backgroundColor: 'rgba(99, 132, 255, 0.6)',
               borderColor: 'rgba(99, 132, 255, 0.6)',
               fill: false
@@ -51,39 +51,39 @@ class DistanceChart extends Component {
 
     componentDidUpdate() {
         this.chart.data = {
-          labels: this.props.time,
+          labels: this.props.data.time,
           datasets:[
             {
               label:'RSSI (dBm / 10)',
-              data:this.props.rssi,
+              data:this.props.data.rssi,
               backgroundColor: 'rgba(255, 99, 132, 0.6)',
               borderColor: 'rgba(255, 99, 132, 0.6)',
               fill: false
             },
             {
               label:'Distance (m)',
-              data:this.props.distance,
+              data:this.props.data.distance,
               backgroundColor: 'rgba(255, 99, 132, 0.6)',
               borderColor: 'rgba(255, 155, 132, 0.6)',
               fill: false
             },
             {
               label:'Winsor (m)',
-              data:this.props.winsor,
+              data:this.props.data.winsor,
               backgroundColor: 'rgba(99, 132, 255, 0.6)',
               borderColor: 'rgba(99, 255, 55, 0.6)',
               fill: false
             },
             {
               label:'Henderson (m)',
-              data:this.props.henderson,
+              data:this.props.data.henderson,
               backgroundColor: 'rgba(255, 132, 255, 0.6)',
               borderColor: 'rgba(255, 255, 55, 0.6)',
               fill: false
             },
             {
               label:'Kalman (m)',
-              data:this.props.kalman,
+              data:this.props.data.kalman,
               backgroundColor: 'rgba(99, 132, 255, 0.6)',
               borderColor: 'rgba(99, 132, 255, 0.6)',
               fill: false

@@ -64,7 +64,7 @@ class Map extends Component {
         node1.r = this.props.r1;
         node2.r = this.props.r2;
         node3.r = this.props.r3;
-        node4.r = this.props.r3;
+        node4.r = this.props.r4;
         this.drawNodesAndBeacons(this.canvasMap, nodes);
     }
 
@@ -79,7 +79,7 @@ class Map extends Component {
         });
 
         // Draw beacon
-        [calc.x, calc.y] = this.getCalculation(this.props.r1, this.props.r2, this.props.r3);
+        [calc.x, calc.y] = this.getCalculation(this.props.r1, this.props.r2, this.props.r3, this.props.r4);
         ctx.fillStyle = "rgba(100, 0, 200, 0.7)";
         ctx.fillRect( calc.x * 200, calc.y  * 200, 20, 20);
         
@@ -107,13 +107,13 @@ class Map extends Component {
         })
     }
 
-    getCalculation = (r1, r2, r3) => {
+    getCalculation = (r1, r2, r3, r4) => {
 
         let input = [
             [node1.x, node1.y, r1],
             [node2.x, node2.y, r2],
             [node3.x, node3.y, r3],
-            [node4.x, node4.y, r2]
+            [node4.x, node4.y, r4]
         ]
 
         let output = trilat(input);
