@@ -3,18 +3,12 @@ import React, {Component} from 'react'
 // Socket IO
 import socketIOClient from "socket.io-client";
 
-
-// Data smoothening libraries
-import KalmanFilter from 'kalmanjs'
-import unirand from 'unirand'
-
 // Charts
 import DistanceChart from './components/DistanceChart'
 import Map from './components/Map'
 
 // Bootstrap and other jazz
 import {Tabs, Tab} from 'react-bootstrap'
-import { csv } from 'd3'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -22,9 +16,6 @@ const ENDPOINT = "http://127.0.0.1:3020";
 const socket = socketIOClient(ENDPOINT);
 
 
-
-let A = -56;
-let n = 2;
 
 class App extends Component {
   constructor (props) {
@@ -122,11 +113,11 @@ class App extends Component {
     <div className='App'>
 
       <Tabs defaultActiveKey="map" id="uncontrolled-tab-example">
-        {/* <Tab eventKey="nodeZero" title="Node Zero">
+        <Tab eventKey="nodeZero" title="Node Zero">
           <DistanceChart data={this.state.dataZero}/>
         </Tab>
 
-        <Tab eventKey="nodeOne" title="Node One">
+        {/* <Tab eventKey="nodeOne" title="Node One">
           <DistanceChart time={this.state.dataOne.time} rssi={this.state.dataOne.rssi} distance={this.state.dataOne.distance} kalman={this.state.dataOne.kalman}  winsor={this.state.dataOne.winsor} henderson={this.state.dataOne.henderson}/>
         </Tab>
 

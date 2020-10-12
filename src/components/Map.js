@@ -9,20 +9,20 @@ const node1 = {
 }
 
 const node2 = {
-    x: 2.9,
+    x: 4.9,
     y: 0,
     r: 0
 }
 
 const node3 = {
-    x: 2.9,
-    y: 2.9,
+    x: 4.9,
+    y: 4.9,
     r: 0
 }
 
 const node4 = {
     x: 0,
-    y: 2.9,
+    y: 4.9,
     r: 0
 }
 
@@ -31,8 +31,8 @@ let nodes = [node1, node2, node3, node4];
 let calc = {
     x: 0,
     y: 0,
-    actualX: 3,
-    actualY: 2
+    actualX: 1,
+    actualY: 4
 }
 
 
@@ -49,7 +49,7 @@ class Map extends Component {
 
     componentWillMount() {
         this.setState({
-            canvasSize: {canvasWidth: 600, canvasHeight: 600}
+            canvasSize: {canvasWidth: 1000, canvasHeight: 1000}
         })
     }
 

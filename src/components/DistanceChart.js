@@ -6,7 +6,7 @@ class DistanceChart extends Component {
     constructor (props) {
         super(props);
 
-      this.chartData = {
+      this.state = {chartData : {
           labels: this.props.data.time,
           datasets:[
             {
@@ -46,44 +46,45 @@ class DistanceChart extends Component {
             }
           ]
         }
+      }
   }
     
 
-    componentDidUpdate() {
-        this.chart.data = {
-          labels: this.props.data.time,
+  static getDerivedStateFromProps(props, state) {
+        let data = {
+          labels: props.data.time,
           datasets:[
             {
               label:'RSSI (dBm / 10)',
-              data:this.props.data.rssi,
+              data:props.data.rssi,
               backgroundColor: 'rgba(255, 99, 132, 0.6)',
               borderColor: 'rgba(255, 99, 132, 0.6)',
               fill: false
             },
             {
               label:'Distance (m)',
-              data:this.props.data.distance,
+              data:props.data.distance,
               backgroundColor: 'rgba(255, 99, 132, 0.6)',
               borderColor: 'rgba(255, 155, 132, 0.6)',
               fill: false
             },
             {
               label:'Winsor (m)',
-              data:this.props.data.winsor,
+              data:props.data.winsor,
               backgroundColor: 'rgba(99, 132, 255, 0.6)',
               borderColor: 'rgba(99, 255, 55, 0.6)',
               fill: false
             },
             {
               label:'Henderson (m)',
-              data:this.props.data.henderson,
+              data:props.data.henderson,
               backgroundColor: 'rgba(255, 132, 255, 0.6)',
               borderColor: 'rgba(255, 255, 55, 0.6)',
               fill: false
             },
             {
               label:'Kalman (m)',
-              data:this.props.data.kalman,
+              data:props.data.kalman,
               backgroundColor: 'rgba(99, 132, 255, 0.6)',
               borderColor: 'rgba(99, 132, 255, 0.6)',
               fill: false
@@ -91,6 +92,7 @@ class DistanceChart extends Component {
           ]
         }
 
+        state.chartData = data;
     }
 
     render() {
@@ -98,7 +100,7 @@ class DistanceChart extends Component {
             <div className="chart">
                 <Line
                     ref={chart => this.chart = chart}
-                    data={this.chartData}
+                    data={this.state.chartData}
                     options={{ maintainAspectRatio: true, 
                                 responsive: true, 
                                 scales: {

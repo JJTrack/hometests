@@ -9,8 +9,8 @@ const app = require('express')();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const port = 3020;
-const A = -56;
-const n = 2;
+let A = -50;
+let n = 3.315564;
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
@@ -21,7 +21,7 @@ io.on('connection', (socket) => {
 
   socket.on("get data", (file) => {
 
-    let inputStream = Fs.createReadStream(`public/data/live/${file}.csv`, 'utf8');
+    let inputStream = Fs.createReadStream(`public/data/5m/testtwo/center/${file}.csv`, 'utf8');
     let csv_data = [];
     inputStream
         .pipe(new CsvReadableStream({ parseNumbers: true, parseBooleans: true, trim: true }))
