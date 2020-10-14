@@ -21,7 +21,7 @@ io.on('connection', (socket) => {
 
   socket.on("get data", (file) => {
 
-    let inputStream = Fs.createReadStream(`public/data/5m/testtwo/center/${file}.csv`, 'utf8');
+    let inputStream = Fs.createReadStream(`data/5m/testtwo/onexfour/${file}.csv`, 'utf8');
     let csv_data = [];
     inputStream
         .pipe(new CsvReadableStream({ parseNumbers: true, parseBooleans: true, trim: true }))
@@ -36,7 +36,7 @@ io.on('connection', (socket) => {
           let kalman = [];
 
 
-          csv_data.slice(Math.max(csv_data.length - 24, 0)).forEach(function (row){
+          csv_data.slice(Math.max(csv_data.length - 10, 0)).forEach(function (row){
             rssi.push(row[3]);
             time.push(row[0]);
             let exponent = (A - (parseInt(row[3], 10) *-1))/(10*n)
@@ -46,7 +46,7 @@ io.on('connection', (socket) => {
           let winsorize = unirand.winsorize;
           let winsor = winsorize(distance, 0.3, false);
           let henderson = unirand.smoothSync(winsor, {
-            policy: 'H23-MA'
+            policy: 'H9-MA'
           })
 
           let kf = new KalmanFilter({R: 0.00001, Q: 3});

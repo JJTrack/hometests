@@ -10,22 +10,22 @@ const server = net.createServer(onClientConnection);
 const createCsvWriter = require('csv-writer').createArrayCsvWriter;
 
 const csvWriterZero = createCsvWriter({
-    path: 'public/data/live/data0.csv',
+    path: 'data/live/data0.csv',
     header: ['TIME', 'NODEUUID', 'BLEUUID', 'RSSI', 'PACKETID']
 });
 
 const csvWriterOne = createCsvWriter({
-    path: 'public/data/live/data1.csv',
+    path: 'data/live/data1.csv',
     header: ['TIME', 'NODEUUID', 'BLEUUID', 'RSSI', 'PACKETID']
 });
 
 const csvWriterTwo = createCsvWriter({
-    path: 'public/data/live/data2.csv',
+    path: 'data/live/data2.csv',
     header: ['TIME', 'NODEUUID', 'BLEUUID', 'RSSI', 'PACKETID']
 });
 
 const csvWriterThree = createCsvWriter({
-    path: 'public/data/live/data3.csv',
+    path: 'data/live/data3.csv',
     header: ['TIME', 'NODEUUID', 'BLEUUID', 'RSSI', 'PACKETID']
 });
 
