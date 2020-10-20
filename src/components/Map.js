@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import NumericInput from 'react-numeric-input';
 import Canvas from 'react-responsive-canvas'
+import Dropdown from 'react-bootstrap/Dropdown'
 const trilat = require("trilat");
 
 
@@ -133,6 +135,16 @@ class Map extends Component {
             radiusState: this.state.radiusState == "on" ? "off" : "on"
         })
     }
+
+    updateX = (event) => {
+        calc.actualX = event;
+        this.drawNodesAndBeacons();
+    }
+
+    updateY = (event) => {
+        calc.actualY = event;
+        this.drawNodesAndBeacons();
+    }
     
 
     render() {
@@ -140,23 +152,29 @@ class Map extends Component {
             <div className="Map">
 
                 <div className="mapContainer">
-                    <Canvas canvasRef={canvasMap => this.canvasMap = canvasMap} handleResize={this.drawNodesAndBeacons.bind(this)} className="canvas"/>
+                    <Canvas canvasRef={canvasMap => this.canvasMap = canvasMap} onResize={this.drawNodesAndBeacons.bind(this)} className="canvas"/>
                 </div>
 
                 <div className="extras">
 
-                    {/* <h1>Calculations</h1>
+                    <Dropdown >
+                        <Dropdown.Toggle variant="success" id="dropdown-basic">
+                            Customise
+                        </Dropdown.Toggle>
 
-                    <p>Actual X: {calc.actualX}</p> 
-                    <p>Calculated X: {calc.x}</p> 
-                    <p>Actual Y: {calc.actualY}</p> 
-                    <p>Calculated Y: {calc.y}</p>  */}
+                        <Dropdown.Menu>
+                            <div>
+                                Custom X: <NumericInput min={0} max={5} value={1} onChange={this.updateX}/>
+                                Custom Y: <NumericInput min={0} max={5} value={4} onChange={this.updateY}/>
+                            </div>
 
-
-                    <div className="custom-control custom-switch">
-                        <input type="checkbox" className="custom-control-input" id="customSwitches" onChange={this.toggleRadius}></input>
-                        <label className="custom-control-label" htmlFor="customSwitches">Turn radius {this.state.radiusState}</label>
-                    </div>
+                            <div className="custom-control custom-switch">
+                                <input type="checkbox" className="custom-control-input" id="customSwitches" onChange={this.toggleRadius}></input>
+                                <label className="custom-control-label" htmlFor="customSwitches">Turn radius {this.state.radiusState}</label>
+                            </div>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                    
                 </div>
 
             </div>

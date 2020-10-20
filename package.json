@@ -22,6 +22,7 @@
     "react-chartjs-2": "^2.10.0",
     "react-dom": "^16.13.1",
     "react-native-tcp-socket": "^4.5.1",
+    "react-numeric-input": "^2.2.3",
     "react-responsive-canvas": "^1.0.2",
     "react-scripts": "3.4.3",
     "socket.io": "^2.3.0",

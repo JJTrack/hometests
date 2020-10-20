@@ -13,15 +13,13 @@
 }
 
 .extras {
-  float:right;
   text-align: center;
   width: 30%;
   padding: 20px;
   margin: 0 auto;
 }
 
-.extras p {
-  padding: 3px;
-  text-align: left;
+.custom-switch {
+  margin: 10px auto;
 }
 
