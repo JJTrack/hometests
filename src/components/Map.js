@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Canvas from 'react-responsive-canvas'
 const trilat = require("trilat");
 
 
@@ -9,20 +10,20 @@ const node1 = {
 }
 
 const node2 = {
-    x: 4.9,
+    x: 5,
     y: 0,
     r: 0
 }
 
 const node3 = {
-    x: 4.9,
-    y: 4.9,
+    x: 5,
+    y: 5,
     r: 0
 }
 
 const node4 = {
     x: 0,
-    y: 4.9,
+    y: 5,
     r: 0
 }
 
@@ -54,10 +55,11 @@ class Map extends Component {
     }
 
     componentDidMount() {
-        const { canvasWidth, canvasHeight } = this.state.canvasSize;
-        this.canvasMap.width = canvasWidth;
-        this.canvasMap.height = canvasHeight;
-        this.drawNodesAndBeacons(this.canvasMap, nodes);
+        // const { canvasWidth, canvasHeight } = this.state.canvasSize;
+        // this.canvasMap.width = canvasWidth;
+        // this.canvasMap.height = canvasHeight;
+        this.ctx = this.canvasMap.getContext("2d");
+        this.drawNodesAndBeacons();
     }
 
     componentDidUpdate() {
@@ -65,32 +67,36 @@ class Map extends Component {
         node2.r = this.props.r2;
         node3.r = this.props.r3;
         node4.r = this.props.r4;
-        this.drawNodesAndBeacons(this.canvasMap, nodes);
+        this.drawNodesAndBeacons();
     }
 
-    drawNodesAndBeacons = (canvasID, nodes) => {
-        const ctx = canvasID.getContext("2d");
-        ctx.clearRect(0, 0, this.state.canvasSize.canvasWidth, this.state.canvasSize.canvasHeight);
+    drawNodesAndBeacons = () => {
+        console.log(this.canvasMap.width)
+        this.ctx.clearRect(0, 0, this.canvasMap.width, this.canvasMap.width);
         
         // Draw nodes
         nodes.forEach(node => {
-            ctx.fillStyle = "rgba(255, 0, 50, 0.7)";
-            ctx.fillRect(node.x * 200, node.y * 200, 20, 20); 
+            this.ctx.fillStyle = "rgba(255, 0, 50, 0.7)";
+            let w, h;
+
+            node.x == 0 ? w =  node.x * this.canvasMap.width/5 : w = node.x * this.canvasMap.width/5 - 20;
+            node.y == 0 ? h =  node.y * this.canvasMap.height/5 : h = node.y * this.canvasMap.height/5 - 20;
+            this.ctx.fillRect(w, h, 20, 20); 
         });
 
         // Draw beacon
         [calc.x, calc.y] = this.getCalculation(this.props.r1, this.props.r2, this.props.r3, this.props.r4);
-        ctx.fillStyle = "rgba(100, 0, 200, 0.7)";
-        ctx.fillRect( calc.x * 200, calc.y  * 200, 20, 20);
+        this.ctx.fillStyle = "rgba(100, 0, 200, 0.7)";
+        this.ctx.fillRect( calc.x * this.canvasMap.width/5, calc.y  * this.canvasMap.height/5, 20, 20);
         
         
         // Draw expected beacon
-        ctx.fillStyle = "rgba(0, 200, 200, 0.7)";
-        ctx.fillRect( calc.actualX * 200, calc.actualY  * 200, 20, 20); 
+        this.ctx.fillStyle = "rgba(0, 200, 200, 0.7)";
+        this.ctx.fillRect( calc.actualX * this.canvasMap.height/5, calc.actualY  * this.canvasMap.height/5, 20, 20); 
 
 
         if(this.state.radiusState == "off") {
-            this.drawRadiuses(ctx);
+            this.drawRadiuses(this.ctx);
         }
     }
 
@@ -98,7 +104,7 @@ class Map extends Component {
         nodes.forEach(node => {
             console.log(node.x, node.y, node.r);
             ctx.beginPath();
-            ctx.arc(node.x * 200, node.y * 200, node.r*200, 0, 2 * Math.PI, false);
+            ctx.arc(node.x * this.canvasMap.height/5, node.y * this.canvasMap.width/5, node.r*this.canvasMap.height/5, 0, 2 * Math.PI, false);
             ctx.strokeStyle = 'rgba(100, 0, 200, 0.8)';
             ctx.fillStyle = 'rgba(100, 0, 200, 0.1)';
             ctx.stroke();
@@ -131,20 +137,20 @@ class Map extends Component {
 
     render() {
         return(
-            <div className="chart">
+            <div className="Map">
 
                 <div className="mapContainer">
-                    <canvas ref={canvasMap => this.canvasMap = canvasMap} className="Map"> </canvas>
+                    <Canvas canvasRef={canvasMap => this.canvasMap = canvasMap} handleResize={this.drawNodesAndBeacons.bind(this)} className="canvas"/>
                 </div>
 
                 <div className="extras">
 
-                    <h1>Calculations</h1>
+                    {/* <h1>Calculations</h1>
 
                     <p>Actual X: {calc.actualX}</p> 
                     <p>Calculated X: {calc.x}</p> 
                     <p>Actual Y: {calc.actualY}</p> 
-                    <p>Calculated Y: {calc.y}</p> 
+                    <p>Calculated Y: {calc.y}</p>  */}
 
 
                     <div className="custom-control custom-switch">

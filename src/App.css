@@ -1,13 +1,15 @@
 .mapContainer {
-  width: 47%;
-  margin: 20px 0px 20px 3%;
-  float: left;
+  width: 50vw;
+  height: 50vw;
 }
 
 .Map {
-  box-shadow: 0px 0px 23px rgba(150, 150, 150, 0.4);
-  /* margin: 50px 0px 50px 200px; */
+  width: 50vw;
+  margin: 30px auto;
+}
 
+.canvas {
+  box-shadow: 0px 0px 23px rgba(150, 150, 150, 0.4);
 }
 
 .extras {

@@ -87,8 +87,8 @@ class App extends Component {
     });
 
 
-    this.intervalID = setInterval(() => {this.updateData();}, 1000);
-    this.radiusInterval = setInterval(() => {this.updateRadiuses();}, 5000);
+    this.intervalID = setInterval(() => {this.updateData();}, 30000);
+    this.radiusInterval = setInterval(() => {this.updateRadiuses();}, 30000);
 
   }
 
