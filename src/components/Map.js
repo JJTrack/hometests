@@ -46,6 +46,11 @@ class Map extends Component {
 
         this.state = {
             radiusState: "on",
+            errors: {
+                x: 0,
+                y: 0,
+                total: 0
+            }
         }
     
     }
@@ -138,12 +143,16 @@ class Map extends Component {
 
     updateX = (event) => {
         calc.actualX = event;
-        this.drawNodesAndBeacons();
+        let xError = calc.actualX - calc.x;
+
+        this.setState({errors: {x: xError, y: this.state.errors.y, total: 0}})
     }
 
     updateY = (event) => {
         calc.actualY = event;
-        this.drawNodesAndBeacons();
+        let yError = calc.actualY - calc.y;
+
+        this.setState({errors: {x: this.state.errors.x, y: yError, total: 0}})
     }
     
 
@@ -155,17 +164,22 @@ class Map extends Component {
                     <Canvas canvasRef={canvasMap => this.canvasMap = canvasMap} onResize={this.drawNodesAndBeacons.bind(this)} className="canvas"/>
                 </div>
 
+                <div>
+                    <p>X coordinate difference: {this.state.errors.x}m </p>
+                    <p>Y coordinate difference: {this.state.errors.y}m </p>
+                </div>
+
                 <div className="extras">
 
                     <Dropdown >
-                        <Dropdown.Toggle variant="success" id="dropdown-basic">
+                        <Dropdown.Toggle variant="primary" id="dropdown-basic">
                             Customise
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
                             <div>
-                                Custom X: <NumericInput min={0} max={5} value={1} onChange={this.updateX}/>
-                                Custom Y: <NumericInput min={0} max={5} value={4} onChange={this.updateY}/>
+                                Custom X: <NumericInput min={0} max={5} onChange={this.updateX}/>
+                                Custom Y: <NumericInput min={0} max={5} onChange={this.updateY}/>
                             </div>
 
                             <div className="custom-control custom-switch">
